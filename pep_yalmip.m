@@ -90,7 +90,7 @@ function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %             objective value at the best iterate, 20 iterations. Solver
 %             set to Mosek with tolerance 1e-10.
 %
-%           clear P, A, C, S;
+%           clear P A C S;
 %           P.L=1; P.mu=0; P.R=1;
 %           A.name='OGM2'; A.N=40; 
 %           C.name='Obj'; S.solver='mosek'; S.tol=1e-10;
@@ -101,7 +101,7 @@ function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %             last gradient norm, 10 iterations. Default Yalmip solver and
 %             tolerance.
 %
-%           clear P, A, C, S;
+%           clear P A C S;
 %           P.L=1; P.mu=0; P.R=1;
 %           A.name='GM'; A.N=10; A.stepsize=1.5;
 %           C.name='Grad';
@@ -112,7 +112,7 @@ function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %             best gradient norm, 5 iterations. Solver set to Sedumi
 %             tolerance 1e-9.
 %
-%           clear P, A, C, S;
+%           clear P A C S;
 %           P.L=1; P.mu=0; P.R=1;
 %           A.name='FGM1'; A.N=5;
 %           C.name='MinGrad';
@@ -125,14 +125,14 @@ function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %             with tolerance 1e-9. 2 ways of doing this: via the 'Custom'
 %             and via the 'GM' options.
 %
-%           clear P, A, C, S;
+%           clear P A C S;
 %           P.L=1; P.mu=0; P.R=1;
 %           A.name='Custom'; A.N=2; C.name='MinGrad';
 %           S.solver='sedumi'; S.tol=1e-9; S.verb=0;
 %           A.stepsize=[1 0 ; 1 1];
 %           [val, Sol, Prob]=pep_yalmip(P,A,C,S); format long; val
 %           
-%           clear P, A, C, S;
+%           clear P A C S;
 %           P.L=1; P.mu=0; P.R=1;
 %           A.name='GM'; A.N=2; C.name='MinGrad';
 %           S.solver='sedumi'; S.tol=1e-9; S.verb=0;
@@ -143,7 +143,7 @@ function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %             objective value of the average of the iterates, 
 %             10 iterations. Default Yalmip solver and tolerance.
 %
-%           clear P, A, C, S;
+%           clear P A C S;
 %           P.L=1; P.mu=0; P.R=1;
 %           A.name='GM'; A.N=10; A.stepsize=1.5;
 %           C.name='AvgObj';
@@ -332,14 +332,10 @@ end
 
 %% General stepsize input: steps_c(i,:)=[-h(i,:) 0 1]  (supplementary entries
 % corresponding to g_N and x_0)
+
+steps_c=[-steps_h/L zeros(N+1,1) ones(N+1,1)];
 if strcmp(criterion,'AvgObj')
-    steps_c=[-steps_h/L zeros(N+1,2) ones(N+1,1)];
-    steps_c=[steps_c;mean(steps_c(2:end,:),1)];
-else
-    steps_c=[-steps_h/L zeros(N+1,1) ones(N+1,1)];
-end
-if strcmp(criterion,'AvgObj')
-    N=N+1;
+    steps_c(end,:)=[mean(steps_c(2:end,:),1)];
 end
 %% Matrices Generation:
 %
@@ -638,9 +634,6 @@ Prob.criterion=criterion;
 Prob.solver=solver;
 Prob.solvertolerance=tolerance;
 Prob.method=method;
-if strcmp(criterion,'AvgObj')
-    N=N-1;
-end
 Prob.nbIter=N;
 Prob.L=L;
 Prob.R=R;
