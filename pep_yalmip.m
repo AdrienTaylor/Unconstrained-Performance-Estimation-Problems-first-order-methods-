@@ -1,10 +1,12 @@
 function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %
-%   Author: A. Taylor; Universite catholique de Louvain.
+%   Authors: A.B. Taylor; Universite catholique de Louvain
+%	     F.   Glineur; Universite catholique de Louvain
+%
 %   Date:   March 11, 2015
 %
 %
-%   Version: June 2, 2015
+%   Version: June 3, 2015
 %
 %
 % ---- Performance Estimation Problem [THG][DT][KF] routine using YALMIP [Lof]
