@@ -1,13 +1,20 @@
 function [val, Sol, Prob]=pep_yalmip(P,A,C,S)
 %
-%   Authors: A.B. Taylor; Universite catholique de Louvain
-%	     F.   Glineur; Universite catholique de Louvain
+%   Author: A. Taylor; Universite catholique de Louvain,
+%           F. Glineur;Universite catholique de Louvain,
+%           J. Hendrickx;Universite catholique de Louvain.
 %
 %   Date:   March 11, 2015
 %
 %
-%   Version: June 3, 2015
+%   Version: June 5, 2015
 %
+%   Examples provided below can be executed from the file demo.m.
+%
+%   This version is not intended to provide the most efficient possible
+%   implementation, but rather to provide a readable program (e.g. the
+%   constraint matrices should not be formed and kept in memory if it
+%   was not for checkability -- and eventually for the dual).
 %
 % ---- Performance Estimation Problem [THG][DT][KF] routine using YALMIP [Lof]
 %
