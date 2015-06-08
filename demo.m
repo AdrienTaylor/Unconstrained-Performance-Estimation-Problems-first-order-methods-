@@ -39,7 +39,7 @@ S.solver='sedumi'; S.tol=1e-9;
 %             best gradient norm, 2 iterations. Solver set to Sedumi
 %             with tolerance 1e-9. 2 ways of doing this: via the 'Custom'
 %             and via the 'GM' options.
-%
+
 clear P A C S;
 P.L=1; P.mu=0; P.R=1;
 A.name='Custom'; A.N=2; C.name='MinGrad';
