@@ -1,5 +1,5 @@
 
-   Author: A. Taylor; Universite catholique de Louvain,
+   Authors: A. Taylor; Universite catholique de Louvain,
            F. Glineur;Universite catholique de Louvain,
            J. Hendrickx;Universite catholique de Louvain.
 
